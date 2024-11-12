@@ -15,7 +15,15 @@ const MainTabNavigator = () => {
 
   return (
     <NavigationContainer theme={theme}>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: theme.colors.background, // Define a cor de fundo do menu
+          },
+          tabBarActiveTintColor: theme.colors.primary, // Cor do ícone ativo
+          tabBarInactiveTintColor: theme.colors.text,  // Cor do ícone inativo
+        }}
+      >
         <Tab.Screen
           name="Home"
           component={HomeScreen}
