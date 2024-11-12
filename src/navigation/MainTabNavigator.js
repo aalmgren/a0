@@ -18,10 +18,15 @@ const MainTabNavigator = () => {
       <Tab.Navigator
         screenOptions={{
           tabBarStyle: {
-            backgroundColor: theme.colors.background, // Define a cor de fundo do menu
+            backgroundColor: theme.colors.background, // Cor de fundo do menu
           },
-          tabBarActiveTintColor: theme.colors.primary, // Cor do ícone ativo
-          tabBarInactiveTintColor: theme.colors.text,  // Cor do ícone inativo
+          tabBarLabelStyle: {
+            color: theme.colors.text, // Cor do texto da tab
+            fontWeight: 'bold', // Para melhor visibilidade
+          },
+          tabBarActiveTintColor: theme.colors.primary, // Cor dos ícones ativos
+          tabBarInactiveTintColor: theme.colors.textSecondary || theme.colors.text, // Cor dos ícones inativos
+          headerShown: false // Remove o título fixo acima das telas
         }}
       >
         <Tab.Screen

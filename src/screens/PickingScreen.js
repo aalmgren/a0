@@ -1,17 +1,17 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { View, Text, Button } from 'react-native';
 import { ThemeContext } from '../contexts/ThemeContext';
-import { LanguageContext } from '../contexts/LanguageContext';
 import i18n from '../i18n';
-import BarcodeScanner from '../components/BarcodeScanner'; // Importe o componente de escaneamento
-import styles from '../styles/PickingStyles'; // Importa os estilos do arquivo separado
-import { ProgressBar } from 'react-native-paper';
+import BarcodeScanner from '../components/BarcodeScanner';
+import ProgressBarComponent from '../components/ProgressBarComponent';
+import styles from '../styles/PickingStyles';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Card } from 'react-native-paper';
 
-const pickingList = [
-  { id: 1, produto: i18n.t('product_a'), localizacao: i18n.t('location_a'), quantidade: 10 },
-  { id: 2, produto: i18n.t('product_b'), localizacao: i18n.t('location_b'), quantidade: 5 },
-  { id: 3, produto: i18n.t('product_c'), localizacao: i18n.t('location_c'), quantidade: 8 },
+const initialPickingList = [
+  { id: 1, name: i18n.t('product_a'), location: i18n.t('location_a'), quantity: 10 },
+  { id: 2, name: i18n.t('product_b'), location: i18n.t('location_b'), quantity: 5 },
+  { id: 3, name: i18n.t('product_c'), location: i18n.t('location_c'), quantity: 8 },
 ];
 
 export default function PickingScreen() {
@@ -20,11 +20,23 @@ export default function PickingScreen() {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [isScanning, setIsScanning] = useState(false);
   const { theme } = useContext(ThemeContext);
-  const { language } = useContext(LanguageContext);
 
-  const currentProduct = pickingList[currentProductIndex];
+  console.log('Current Step:', step);
+  console.log('Current Product Index:', currentProductIndex);
+
+  const currentProduct = currentProductIndex >= 0 && currentProductIndex < initialPickingList.length
+    ? initialPickingList[currentProductIndex]
+    : null;
+
+  const handleBarcodeScanned = (scannedBarcode) => {
+    console.log('Barcode scanned:', scannedBarcode);
+    setBarcode(scannedBarcode);
+    setIsScanning(false);
+    handleNextStep();
+  };
 
   const handleNextStep = () => {
+    console.log('handleNextStep called, current step:', step);
     if (step === 'welcome') {
       setStep('list');
     } else if (step === 'list') {
@@ -32,96 +44,101 @@ export default function PickingScreen() {
     } else if (step === 'location') {
       setStep('scanProduct');
     } else if (step === 'scanProduct') {
-      if (currentProductIndex < pickingList.length - 1) {
+      if (currentProductIndex < initialPickingList.length - 1) {
+        console.log('Advancing to next product...');
         setCurrentProductIndex(currentProductIndex + 1);
         setStep('location');
       } else {
+        console.log('Completed all products');
         setStep('completed');
       }
     }
   };
 
-  const handleBarcodeScanned = (scannedBarcode) => {
-    setBarcode(scannedBarcode);
-    setIsScanning(false); // Fecha o scanner
-
-    // Avança para a próxima etapa independentemente do código escaneado
-    handleNextStep();
-  };
-
   const renderStepContent = () => {
+    console.log('Rendering content for step:', step);
     if (isScanning) {
+      console.log('Barcode scanner active');
       return (
         <BarcodeScanner
           visible={isScanning}
           onScanned={handleBarcodeScanned}
-          onClose={() => setIsScanning(false)}
+          onClose={() => {
+            console.log('Scanner closed');
+            setIsScanning(false);
+          }}
         />
       );
     }
 
     return (
       <View>
-        <Text style={styles.progressText}>{i18n.t('progress')}: {currentProductIndex + 1} / {pickingList.length}</Text>
-        <ProgressBar progress={(currentProductIndex + 1) / pickingList.length} color="#007BFF" />
-
-        <View style={styles.card}>
-          {step === 'welcome' && (
-            <>
-              <Text style={[styles.text, { color: theme.colors.text }]}>{i18n.t('welcome_message')}</Text>
-              <TouchableOpacity style={styles.button} onPress={() => setIsScanning(true)}>
-                <Icon name="qr-code-scanner" size={20} color="#fff" />
-                <Text style={styles.buttonText}>{i18n.t('start_scanning')}</Text>
-              </TouchableOpacity>
-            </>
-          )}
-          {step === 'list' && (
-            <>
-              <Text style={[styles.text, { color: theme.colors.text }]}>{i18n.t('picking_list')}</Text>
-              {pickingList.map((item) => (
+        <ProgressBarComponent current={currentProductIndex + 1} total={initialPickingList.length} />
+        {step === 'welcome' && (
+          <Card style={styles.card}>
+            <Card.Content>
+              <Text style={styles.text}>{i18n.t('welcome_message')}</Text>
+              <Button onPress={() => {
+                console.log('Start scanning pressed');
+                setIsScanning(true);
+              }} title={i18n.t('start_scanning')} />
+            </Card.Content>
+          </Card>
+        )}
+        {step === 'list' && (
+          <Card style={styles.card}>
+            <Card.Content>
+              <Text style={styles.text}>{i18n.t('picking_list')}</Text>
+              {initialPickingList.map((item) => (
                 <Text key={item.id} style={[styles.cardText, { color: theme.colors.text }]}>
                   <Icon name="local-shipping" size={16} color={theme.colors.text} />{' '}
-                  {`${item.produto} - ${item.localizacao} - ${i18n.t('quantity')}: ${item.quantidade}`}
+                  {`${item.name} - ${item.location} - ${i18n.t('quantity')}: ${item.quantity}`}
                 </Text>
               ))}
-              <TouchableOpacity style={styles.button} onPress={handleNextStep}>
-                <Icon name="play-arrow" size={20} color="#fff" />
-                <Text style={styles.buttonText}>{i18n.t('start_picking')}</Text>
-              </TouchableOpacity>
-            </>
-          )}
-          {step === 'location' && (
-            <>
-              <Text style={[styles.text, { color: theme.colors.text }]}>
-                {i18n.t('go_to_location')}: {currentProduct.localizacao}
-              </Text>
-              <TouchableOpacity style={styles.button} onPress={() => setIsScanning(true)}>
-                <Icon name="qr-code-scanner" size={20} color="#fff" />
-                <Text style={styles.buttonText}>{i18n.t('scan_shelf_barcode')}</Text>
-              </TouchableOpacity>
-            </>
-          )}
-          {step === 'scanProduct' && (
-            <>
-              <Text style={[styles.text, { color: theme.colors.text }]}>
-                {i18n.t('scan_product')}: {currentProduct.produto}
-              </Text>
-              <TouchableOpacity style={styles.button} onPress={() => setIsScanning(true)}>
-                <Icon name="qr-code-scanner" size={20} color="#fff" />
-                <Text style={styles.buttonText}>{i18n.t('scan_product_barcode')}</Text>
-              </TouchableOpacity>
-            </>
-          )}
-          {step === 'completed' && (
-            <>
-              <Text style={[styles.text, { color: theme.colors.text }]}>{i18n.t('picking_completed')}</Text>
-              <TouchableOpacity style={styles.button} onPress={() => setStep('welcome')}>
-                <Icon name="replay" size={20} color="#fff" />
-                <Text style={styles.buttonText}>{i18n.t('return_to_start')}</Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </View>
+              <Button onPress={() => {
+                console.log('Start picking pressed');
+                handleNextStep();
+              }} title={i18n.t('start_picking')} />
+              <Button onPress={() => {
+                console.log('Rescan list pressed');
+                setIsScanning(true);
+              }} title={i18n.t('rescan_list')} color="red" />
+            </Card.Content>
+          </Card>
+        )}
+        {step === 'location' && currentProduct && (
+          <Card style={styles.card}>
+            <Card.Content>
+              <Text style={styles.text}>{`${i18n.t('go_to_location')}: ${currentProduct.location}`}</Text>
+              <Button onPress={() => {
+                console.log('Scan shelf barcode pressed');
+                setIsScanning(true);
+              }} title={i18n.t('scan_shelf_barcode')} />
+            </Card.Content>
+          </Card>
+        )}
+        {step === 'scanProduct' && currentProduct && (
+          <Card style={styles.card}>
+            <Card.Content>
+              <Text style={styles.text}>{`${i18n.t('scan_product')}: ${currentProduct.name}`}</Text>
+              <Button onPress={() => {
+                console.log('Scan product barcode pressed');
+                setIsScanning(true);
+              }} title={i18n.t('scan_product_barcode')} />
+            </Card.Content>
+          </Card>
+        )}
+        {step === 'completed' && (
+          <Card style={styles.card}>
+            <Card.Content>
+              <Text style={styles.text}>{i18n.t('picking_completed')}</Text>
+              <Button onPress={() => {
+                console.log('Return to start pressed');
+                setStep('welcome');
+              }} title={i18n.t('return_to_start')} />
+            </Card.Content>
+          </Card>
+        )}
       </View>
     );
   };

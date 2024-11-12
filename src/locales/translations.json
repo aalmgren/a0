@@ -1,0 +1,72 @@
+{
+  "en": {
+    "home": "Home",
+    "settings": "Settings",
+    "dark_mode": "Dark Mode",
+    "modules": "Modules",
+    "language": "Language",
+    "choose_language": "Choose Language",
+    "welcome_message": "Welcome to the picking area",
+    "barcode_prompt": "Scan or enter the barcode",
+    "submit": "Submit",
+    "invalid_barcode": "Invalid barcode. Try again.",
+    "picking_list": "Picking List",
+    "quantity": "Quantity",
+    "start_picking": "Start Picking",
+    "start_scanning": "Start Scanning",
+    "go_to_location": "Go to",
+    "scan_shelf": "Scan the shelf barcode",
+    "scan_shelf_barcode": "Scan the shelf barcode",
+    "confirm_and_continue": "Confirm and continue",
+    "scan_product": "Scan the product",
+    "scan_product_barcode": "Scan the product barcode",
+    "confirm": "Confirm",
+    "picking_completed": "Picking completed! All products in the cart.",
+    "return_to_start": "Return to start",
+    "select_new_quantity": "Select new quantity", // Adicionado
+    "update_quantity": "Update Quantity", // Adicionado
+    "quantity_updated": "Quantity updated successfully", // Adicionado
+    "invalid_quantity": "Invalid quantity. Please enter a valid number.", // Adicionado
+    "product_a": "Product A",
+    "product_b": "Product B",
+    "product_c": "Product C",
+    "location_a": "Aisle A, Shelf 1",
+    "location_b": "Aisle B, Shelf 5",
+    "location_c": "Aisle C, Shelf 2"
+  },
+  "pt": {
+    "home": "Início",
+    "settings": "Configurações",
+    "dark_mode": "Modo Escuro",
+    "modules": "Módulos",
+    "language": "Idioma",
+    "choose_language": "Escolha o idioma",
+    "welcome_message": "Bem-vindo à área de picking",
+    "barcode_prompt": "Escaneie ou digite o código de barras",
+    "submit": "Enviar",
+    "invalid_barcode": "Código inválido. Tente novamente.",
+    "picking_list": "Lista de Picking",
+    "quantity": "Quantidade",
+    "start_picking": "Iniciar Picking",
+    "start_scanning": "Iniciar Escaneamento",
+    "go_to_location": "Vá para",
+    "scan_shelf": "Escaneie o código de barras da prateleira",
+    "scan_shelf_barcode": "Escaneie o código de barras da prateleira",
+    "confirm_and_continue": "Confirmar e seguir",
+    "scan_product": "Escaneie o produto",
+    "scan_product_barcode": "Escaneie o código de barras do produto",
+    "confirm": "Confirmar",
+    "picking_completed": "Picking concluído! Todos os produtos no carrinho.",
+    "return_to_start": "Voltar ao início",
+    "select_new_quantity": "Selecione a nova quantidade", // Adicionado
+    "update_quantity": "Atualizar Quantidade", // Adicionado
+    "quantity_updated": "Quantidade atualizada com sucesso", // Adicionado
+    "invalid_quantity": "Quantidade inválida. Por favor, insira um número válido.", // Adicionado
+    "product_a": "Produto A",
+    "product_b": "Produto B",
+    "product_c": "Produto C",
+    "location_a": "Corredor A, Prateleira 1",
+    "location_b": "Corredor B, Prateleira 5",
+    "location_c": "Corredor C, Prateleira 2"
+  }
+}
