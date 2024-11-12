@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { ThemeContext } from '../contexts/ThemeContext';
 import i18n from '../i18n';
 import BarcodeScanner from '../components/BarcodeScanner';
@@ -55,13 +55,19 @@ export default function PickingScreen() {
     } else if (step === 'location') {
       setStep('list');
     } else if (step === 'scanProduct') {
-      setStep('location');
+      if (currentProductIndex > 0) {
+        setCurrentProductIndex(currentProductIndex - 1);
+        setStep('location'); // Volta para a localização do produto anterior
+      } else {
+        setStep('list'); // Se for o primeiro produto, volta para a lista
+      }
     } else if (step === 'completed') {
+      // Volta para o último produto na etapa de escaneamento
       setStep('scanProduct');
       setCurrentProductIndex(initialPickingList.length - 1);
     }
   };
-
+  
   const renderStepContent = () => {
     if (isScanning) {
       return (
@@ -100,7 +106,6 @@ export default function PickingScreen() {
                     </Text>
                   ))}
                   <Button onPress={handleNextStep} title={i18n.t('start_picking')} />
-                  <Button onPress={() => setIsScanning(true)} title={i18n.t('rescan_list')} color="red" />
                 </Card.Content>
               </Card>
             )}
@@ -128,14 +133,36 @@ export default function PickingScreen() {
                 </Card.Content>
               </Card>
             )}
-            {step !== 'welcome' && (
-              <Button onPress={handlePreviousStep} title={i18n.t('back')} color={theme.colors.secondary} />
-            )}
           </View>
         </Swipeable>
+
+        {/* Barra de Navegação Fixa */}
+        <View style={localStyles.navigationBar}>
+          {step !== 'welcome' && (
+            <Button onPress={handlePreviousStep} title={i18n.t('back')} color={theme.colors.secondary} />
+          )}
+          {step !== 'completed' && (
+            <Button onPress={handleNextStep} title={i18n.t('next')} color={theme.colors.primary} />
+          )}
+        </View>
       </GestureHandlerRootView>
     );
   };
 
   return renderStepContent();
 }
+
+const localStyles = StyleSheet.create({
+  navigationBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    backgroundColor: '#f9f9f9',
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+  },
+});

@@ -23,17 +23,21 @@
     "confirm": "Confirm",
     "picking_completed": "Picking completed! All products in the cart.",
     "return_to_start": "Return to start",
-    "select_new_quantity": "Select new quantity", // Added
-    "update_quantity": "Update Quantity", // Added
-    "quantity_updated": "Quantity updated successfully", // Added
-    "invalid_quantity": "Invalid quantity. Please enter a valid number.", // Added
-    "rescan_list": "Rescan List", // Added
+    "select_new_quantity": "Select new quantity",
+    "update_quantity": "Update Quantity",
+    "quantity_updated": "Quantity updated successfully",
+    "invalid_quantity": "Invalid quantity. Please enter a valid number.",
+    "rescan_list": "Rescan List",
     "product_a": "Product A",
     "product_b": "Product B",
     "product_c": "Product C",
     "location_a": "Aisle A, Shelf 1",
     "location_b": "Aisle B, Shelf 5",
-    "location_c": "Aisle C, Shelf 2"
+    "location_c": "Aisle C, Shelf 2",
+    "back": "Back", // Added
+    "next": "Next", // Added
+    "navigation_bar": "Navigation Bar", // Added if needed for accessibility
+    "step_completed": "Step completed" // Added for notifications or alerts
   },
   "pt": {
     "home": "Início",
@@ -59,16 +63,20 @@
     "confirm": "Confirmar",
     "picking_completed": "Picking concluído! Todos os produtos no carrinho.",
     "return_to_start": "Voltar ao início",
-    "select_new_quantity": "Selecione a nova quantidade", // Adicionado
-    "update_quantity": "Atualizar Quantidade", // Adicionado
-    "quantity_updated": "Quantidade atualizada com sucesso", // Adicionado
-    "invalid_quantity": "Quantidade inválida. Por favor, insira um número válido.", // Adicionado
-    "rescan_list": "Reescanear Lista", // Adicionado
+    "select_new_quantity": "Selecione a nova quantidade",
+    "update_quantity": "Atualizar Quantidade",
+    "quantity_updated": "Quantidade atualizada com sucesso",
+    "invalid_quantity": "Quantidade inválida. Por favor, insira um número válido.",
+    "rescan_list": "Reescanear Lista",
     "product_a": "Produto A",
     "product_b": "Produto B",
     "product_c": "Produto C",
     "location_a": "Corredor A, Prateleira 1",
     "location_b": "Corredor B, Prateleira 5",
-    "location_c": "Corredor C, Prateleira 2"
+    "location_c": "Corredor C, Prateleira 2",
+    "back": "Voltar", // Adicionado
+    "next": "Próximo", // Adicionado
+    "navigation_bar": "Barra de Navegação", // Adicionado se necessário para acessibilidade
+    "step_completed": "Etapa concluída" // Adicionado para notificações ou alertas
   }
 }
