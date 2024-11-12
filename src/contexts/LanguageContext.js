@@ -5,21 +5,21 @@ export const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(i18n.locale);
-  const [updateCounter, setUpdateCounter] = useState(0); // Para forçar a re-renderização
 
   const changeLanguage = (lang) => {
-    i18n.locale = lang;
-    setLanguage(lang);
-    setUpdateCounter(prev => prev + 1); // Força a re-renderização
+    if (lang !== language) { // Adicionado para evitar atualizações desnecessárias
+      i18n.locale = lang;
+      setLanguage(lang);
+      console.log(`Idioma alterado para: ${lang}`);
+    }
   };
 
   useEffect(() => {
     i18n.locale = language;
-    console.log('Idioma atual:', i18n.locale);
   }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, changeLanguage, updateCounter }}>
+    <LanguageContext.Provider value={{ language, changeLanguage }}>
       {children}
     </LanguageContext.Provider>
   );

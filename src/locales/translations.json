@@ -23,10 +23,11 @@
     "confirm": "Confirm",
     "picking_completed": "Picking completed! All products in the cart.",
     "return_to_start": "Return to start",
-    "select_new_quantity": "Select new quantity", // Adicionado
-    "update_quantity": "Update Quantity", // Adicionado
-    "quantity_updated": "Quantity updated successfully", // Adicionado
-    "invalid_quantity": "Invalid quantity. Please enter a valid number.", // Adicionado
+    "select_new_quantity": "Select new quantity", // Added
+    "update_quantity": "Update Quantity", // Added
+    "quantity_updated": "Quantity updated successfully", // Added
+    "invalid_quantity": "Invalid quantity. Please enter a valid number.", // Added
+    "rescan_list": "Rescan List", // Added
     "product_a": "Product A",
     "product_b": "Product B",
     "product_c": "Product C",
@@ -62,6 +63,7 @@
     "update_quantity": "Atualizar Quantidade", // Adicionado
     "quantity_updated": "Quantidade atualizada com sucesso", // Adicionado
     "invalid_quantity": "Quantidade inválida. Por favor, insira um número válido.", // Adicionado
+    "rescan_list": "Reescanear Lista", // Adicionado
     "product_a": "Produto A",
     "product_b": "Produto B",
     "product_c": "Produto C",

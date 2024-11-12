@@ -24,13 +24,15 @@ const SettingsScreen = () => {
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       {/* Linha para alternar entre tema claro e escuro */}
       <View style={styles.row}>
-        <Text style={[styles.rowLabel, { color: theme.colors.text, textAlign: 'left' }]}>{i18n.t('dark_mode')}</Text>
-        <Switch
-          value={isDarkTheme}
-          onValueChange={toggleTheme}
-          thumbColor={isDarkTheme ? theme.colors.primary : '#f4f3f4'}
-          trackColor={{ false: '#767577', true: theme.colors.primary }}
-        />
+        <Text style={[styles.rowLabel, { color: theme.colors.text }]}>{i18n.t('dark_mode')}</Text>
+        <View style={styles.inputContainer}>
+          <Switch
+            value={isDarkTheme}
+            onValueChange={toggleTheme}
+            thumbColor={isDarkTheme ? theme.colors.primary : '#f4f3f4'}
+            trackColor={{ false: '#767577', true: theme.colors.primary }}
+          />
+        </View>
       </View>
 
       {/* Separador */}
@@ -38,8 +40,8 @@ const SettingsScreen = () => {
 
       {/* Linha para selecionar o idioma */}
       <View style={styles.row}>
-        <Text style={[styles.rowLabel, { color: theme.colors.text, textAlign: 'left' }]}>{i18n.t('language')}</Text>
-        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+        <Text style={[styles.rowLabel, { color: theme.colors.text }]}>{i18n.t('language')}</Text>
+        <View style={styles.inputContainer}>
           <Picker
             selectedValue={selectedLanguage}
             onValueChange={(itemValue) => handleLanguageChange(itemValue)}
@@ -73,11 +75,15 @@ const styles = StyleSheet.create({
   },
   rowLabel: {
     fontSize: 16,
-    flex: 1,
+    flex: 2, // Ajusta para ocupar mais espaço na linha
+  },
+  inputContainer: {
+    flex: 3, // Garante que o input tenha espaço suficiente para alinhamento
+    alignItems: 'flex-end', // Alinha os inputs à direita
   },
   picker: {
     height: 40,
-    width: '100%', // Ajusta para ocupar a largura disponível na área direita
+    width: '100%', // Garante que o Picker ocupe a largura disponível
   },
   separator: {
     height: 1,
