@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, Switch, Picker } from 'react-native';
+import { View, Text, Switch } from 'react-native';
+import { Picker } from '@react-native-picker/picker'; // Importação corrigida
 import { ThemeContext } from '../contexts/ThemeContext';
 import { LanguageContext } from '../contexts/LanguageContext';
 import i18n from '../i18n';

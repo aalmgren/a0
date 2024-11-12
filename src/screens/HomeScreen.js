@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import i18n from '../i18n';
 import { LanguageContext } from '../contexts/LanguageContext';
 
-const HomeScreen = () => {
+const HomeScreen = () => {    
   const { updateCounter } = useContext(LanguageContext);
 
   useEffect(() => {
