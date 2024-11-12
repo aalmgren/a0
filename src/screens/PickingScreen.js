@@ -62,31 +62,33 @@ export default function PickingScreen() {
         setStep('list'); // Se for o primeiro produto, volta para a lista
       }
     } else if (step === 'completed') {
-      // Volta para o último produto na etapa de escaneamento
       setStep('scanProduct');
       setCurrentProductIndex(initialPickingList.length - 1);
     }
   };
-  
-  const renderStepContent = () => {
-    if (isScanning) {
-      return (
-        <BarcodeScanner
-          visible={isScanning}
-          onScanned={handleBarcodeScanned}
-          onClose={() => setIsScanning(false)}
-        />
-      );
-    }
 
+  const renderStepContent = () => {
     return (
       <GestureHandlerRootView style={styles.container}>
-        <Swipeable
-          onSwipeRight={handlePreviousStep}
-          onSwipeLeft={handleNextStep}
-        >
-          <View>
-            <ProgressBarComponent current={currentProductIndex + 1} total={initialPickingList.length} />
+        {/* Barra de Progresso Fixa */}
+        <View style={localStyles.progressContainer}>
+          <ProgressBarComponent current={currentProductIndex + 1} total={initialPickingList.length} />
+        </View>
+
+        {/* Componente de Câmera */}
+        {isScanning && (
+          <View style={localStyles.cameraContainer}>
+            <BarcodeScanner
+              visible={isScanning}
+              onScanned={handleBarcodeScanned}
+              onClose={() => setIsScanning(false)}
+            />
+          </View>
+        )}
+
+        {/* Detalhes do Produto */}
+        {!isScanning && (
+          <View style={localStyles.productDetailsContainer}>
             {step === 'welcome' && (
               <Card style={styles.card}>
                 <Card.Content>
@@ -134,7 +136,7 @@ export default function PickingScreen() {
               </Card>
             )}
           </View>
-        </Swipeable>
+        )}
 
         {/* Barra de Navegação Fixa */}
         <View style={localStyles.navigationBar}>
@@ -153,6 +155,28 @@ export default function PickingScreen() {
 }
 
 const localStyles = StyleSheet.create({
+  progressContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: '#f9f9f9',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  cameraContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  productDetailsContainer: {
+    flex: 1,
+    paddingTop: 50, // Ajusta para evitar sobreposição com a barra de progresso
+    marginBottom: 20,
+  },
   navigationBar: {
     position: 'absolute',
     bottom: 0,

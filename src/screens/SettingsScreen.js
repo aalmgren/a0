@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
+import { View, Text, Switch, StyleSheet, SafeAreaView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { LanguageContext } from '../contexts/LanguageContext';
@@ -21,7 +21,7 @@ const SettingsScreen = () => {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       {/* Linha para alternar entre tema claro e escuro */}
       <View style={styles.row}>
         <Text style={[styles.rowLabel, { color: theme.colors.text }]}>{i18n.t('dark_mode')}</Text>
@@ -53,14 +53,14 @@ const SettingsScreen = () => {
           </Picker>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 10,
+    paddingTop: 20, // Adiciona espaço superior para evitar sobreposição
     paddingHorizontal: 20,
   },
   row: {
